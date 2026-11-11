@@ -2,7 +2,7 @@
 
 Strategy: mean-reversion swing trader on a single symbol (CBBTC).
 - Rolling mean/std of closes over a 220-bar window; z-score of the latest close.
-- Long entry when the close dips z <= -2.5 below its rolling mean (full cash).
+- Long entry when the close dips z <= -2.7 below its rolling mean (full cash).
 - Exit when the close recovers to z >= 2.2 above the rolling mean (wide take-profit),
   or on a stop-loss (250 bps below entry).
 - Deterministic: no clock, no randomness, no network.
@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "ven
 import makefun_bars
 
 WINDOW = 220
-ENTRY_Z = 2.5
+ENTRY_Z = 2.7
 EXIT_Z = 2.2
 STOP_BPS = 250
 MAX_SLIP_BPS = 100
