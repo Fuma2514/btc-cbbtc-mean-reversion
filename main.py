@@ -1,9 +1,10 @@
 """cbBTC minute-bar trading bot (make.fun bars-replay/v1).
 
-Strategy: mean-reversion scalper on a single symbol (CBBTC).
-- Rolling mean/std of closes over a short window; z-score of the latest close.
-- Long entry when the close dips z <= -2.5 below its 360-bar rolling mean (full cash).
-- Exit on mean-touch (z >= 0.5) or on a stop-loss (80 bps below entry).
+Strategy: mean-reversion swing trader on a single symbol (CBBTC).
+- Rolling mean/std of closes over a 220-bar window; z-score of the latest close.
+- Long entry when the close dips z <= -2.5 below its rolling mean (full cash).
+- Exit when the close recovers to z >= 2.2 above the rolling mean (wide take-profit),
+  or on a stop-loss (250 bps below entry).
 - Deterministic: no clock, no randomness, no network.
 """
 import os
@@ -12,10 +13,10 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "vendor"))
 import makefun_bars
 
-WINDOW = 360
+WINDOW = 220
 ENTRY_Z = 2.5
-EXIT_Z = 0.5
-STOP_BPS = 80
+EXIT_Z = 2.2
+STOP_BPS = 250
 MAX_SLIP_BPS = 100
 
 closes = []
